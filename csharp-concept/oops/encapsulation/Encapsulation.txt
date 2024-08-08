@@ -1,0 +1,6 @@
+Encapsulation involves bundling the data (attributes) and methods (functions) 
+that operate on the data into a single unit, or class. 
+It restricts direct access to some of an object’s components, 
+which can prevent the accidental modification of data. 
+This is often achieved using access modifiers (e.g., private, protected, public).
+
