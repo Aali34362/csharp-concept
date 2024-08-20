@@ -25,14 +25,21 @@ public static class Person_Get_and_Set_Program
 public class Person_Get_and_Set
 {
     private string name;
+    private string color;
+    // It's a so-called auto property
     public string Name
     {
-        get { return name; }
+        get { return this.name; }
         //get { return name; } allows you to read the value of name.
 
-        set { name = value; }
+        set { this.name = value; }
         //set { name = value; } allows you to set the value of name.
         //The keyword value represents the value being assigned.
+    }
+    public string Color   // This is your property
+    {
+        get => this.color;
+        set => this.color = value;
     }
 }
 //get with private set

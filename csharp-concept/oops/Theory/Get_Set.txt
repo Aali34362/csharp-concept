@@ -1,0 +1,291 @@
+
+/////
+Example in Encapsulation folder
+/////
+
+
+Get, Set (set; private Set;  init;)
+
+
+--------------------------------------------------------------------------------------------
+
+Summary of Accessors:
+
+    get: Allows reading the value of the property.
+    set: Allows setting the value of the property.
+    private set: Restricts setting the value of the property to within the class.
+    init: Allows setting the property during object initialization, after which it becomes read-only.
+
+When to Use:
+
+    set: Use when you want to allow unrestricted setting of the property from anywhere.
+    private set: Use when you want the property to be modifiable only within the class, but still readable from outside.
+    init: Use when you want the property to be set only during object creation and remain immutable afterward.
+
+
+-----------------------------------------------------------------------------------------
+Question :
+if i have given a class where properties only have set but not get so whats the need or use of such properties in the class
+
+Answer :
+
+If a class has properties with only a set accessor and no get accessor, 
+it means that the properties can be assigned values but cannot be read directly. 
+This might seem unusual at first, but there are specific scenarios where such a design could be useful.
+
+Scenarios Where set-Only Properties Might Be Used:
+
+    Data Injection or Configuration:
+        The class might be designed to receive configuration or data from an external source 
+        (e.g., dependency injection, file loading), but the values are not meant to be accessed directly by other parts of the code.
+
+    Write-Only Properties for Security or Privacy:
+        The properties might be used to collect sensitive information, 
+        such as passwords or security keys, where you want to ensure that once set, the data cannot be retrieved or exposed.
+
+    Triggering Side Effects:
+        Setting the property might trigger some side effects 
+        (e.g., logging, event raising, calculations), and the actual value might not be relevant or stored.
+
+    Masking Internal State:
+        The class might internally manage the data differently, 
+        and the property is just an interface to set the state or input, but the state is not directly exposed.
+
+Example of a set-Only Property:
+
+public class PasswordManager
+{
+    private string encryptedPassword;
+
+    public string Password
+    {
+        set
+        {
+            // Encrypt the password and store it internally
+            encryptedPassword = EncryptPassword(value);
+        }
+    }
+
+    private string EncryptPassword(string password)
+    {
+        // Placeholder encryption logic
+        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+    }
+
+    // Method to verify the password
+    public bool VerifyPassword(string password)
+    {
+        string encryptedInput = EncryptPassword(password);
+        return encryptedPassword == encryptedInput;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        PasswordManager pm = new PasswordManager();
+
+        // Set the password
+        pm.Password = "mySecretPassword123";
+
+        // The following line would cause a compilation error
+        // string pwd = pm.Password; // Error: No 'get' accessor
+
+        // Verify the password
+        bool isValid = pm.VerifyPassword("mySecretPassword123");
+        Console.WriteLine(isValid ? "Password is correct" : "Password is incorrect");
+    }
+}
+
+Explanation:
+
+    Password Property:
+        This property only has a set accessor, so it allows setting a password but not reading it back. The actual value of the password is encrypted and stored internally in the encryptedPassword field.
+
+    Security:
+        In this case, the lack of a get accessor helps prevent exposing the plain text password, enhancing security. Only the encrypted version is stored and used for verification.
+
+    Side Effects:
+        Setting the password triggers encryption. The property doesn't expose the encrypted password directly, maintaining encapsulation.
+
+Key Points:
+
+    Encapsulation and Security: Set-only properties can be used to control how data is stored and manipulated internally without exposing sensitive or unnecessary details.
+    Side Effects: They can trigger actions when values are set, which might be more important than storing or exposing the value itself.
+    Design Consideration: This approach should be used thoughtfully, as it limits the usability of the property and may confuse other developers if not well-documented.
+
+    -------------------
+
+    Question : 
+    so in future without changing the program how one can read or get from that property of class value
+
+    Answer :
+    If you want to design a class with set-only properties, but foresee a future need to read or retrieve the values without changing the program's structure significantly, here are a few strategies you can consider:
+1. Internal or Protected get Accessor
+
+You can define the property with an internal or protected get accessor. This way, the value can be accessed within the assembly or by derived classes, but not by other external classes.
+
+csharp
+
+public class PasswordManager
+{
+    private string encryptedPassword;
+
+    public string Password
+    {
+        internal get => encryptedPassword; // Internal get for future use
+        set
+        {
+            encryptedPassword = EncryptPassword(value);
+        }
+    }
+
+    private string EncryptPassword(string password)
+    {
+        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+    }
+
+    public bool VerifyPassword(string password)
+    {
+        string encryptedInput = EncryptPassword(password);
+        return encryptedPassword == encryptedInput;
+    }
+}
+
+Future Usage:
+
+    The internal get accessor allows other classes in the same assembly to retrieve the encryptedPassword without exposing it outside the assembly.
+
+2. Private Field with a Public get Method
+
+Instead of exposing the get accessor directly, you can provide a public method to retrieve the value when needed.
+
+csharp
+
+public class PasswordManager
+{
+    private string encryptedPassword;
+
+    public string Password
+    {
+        set
+        {
+            encryptedPassword = EncryptPassword(value);
+        }
+    }
+
+    private string EncryptPassword(string password)
+    {
+        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+    }
+
+    public bool VerifyPassword(string password)
+    {
+        string encryptedInput = EncryptPassword(password);
+        return encryptedPassword == encryptedInput;
+    }
+
+    // Future read access
+    public string GetEncryptedPassword()
+    {
+        return encryptedPassword;
+    }
+}
+
+Future Usage:
+
+    GetEncryptedPassword() provides a way to retrieve the encrypted password when needed without changing the original property structure.
+
+3. Adding a get Accessor Later
+
+If you anticipate needing to add a get accessor later, you can simply modify the property to include it without breaking existing code that only uses the set accessor.
+
+csharp
+
+public class PasswordManager
+{
+    private string encryptedPassword;
+
+    public string Password
+    {
+        get => encryptedPassword; // Added later for read access
+        set
+        {
+            encryptedPassword = EncryptPassword(value);
+        }
+    }
+
+    private string EncryptPassword(string password)
+    {
+        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+    }
+
+    public bool VerifyPassword(string password)
+    {
+        string encryptedInput = EncryptPassword(password);
+        return encryptedPassword == encryptedInput;
+    }
+}
+
+Future Usage:
+
+    By simply adding get => encryptedPassword;, you can now access the encrypted password directly if needed.
+
+4. Deferred Read Access via Events or Callbacks
+
+Another approach is to use events or callback mechanisms to retrieve the value indirectly when necessary.
+
+csharp
+
+public class PasswordManager
+{
+    private string encryptedPassword;
+
+    public string Password
+    {
+        set
+        {
+            encryptedPassword = EncryptPassword(value);
+            OnPasswordSet?.Invoke(encryptedPassword); // Trigger event on set
+        }
+    }
+
+    private string EncryptPassword(string password)
+    {
+        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+    }
+
+    public event Action<string> OnPasswordSet;
+
+    public bool VerifyPassword(string password)
+    {
+        string encryptedInput = EncryptPassword(password);
+        return encryptedPassword == encryptedInput;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        PasswordManager pm = new PasswordManager();
+
+        // Subscribe to the event to capture the value
+        pm.OnPasswordSet += (encryptedPwd) =>
+        {
+            Console.WriteLine($"Encrypted password was set: {encryptedPwd}");
+        };
+
+        pm.Password = "mySecretPassword123"; // Triggers event and prints the encrypted password
+    }
+}
+
+Future Usage:
+
+    The OnPasswordSet event provides a way to retrieve or act upon the property value when it is set, offering a flexible mechanism for future needs without changing the core structure.
+
+Conclusion
+
+While set-only properties limit direct access, you can design your class with flexibility in mind by using techniques like internal/protected access, public methods, or events. This approach ensures that you can extend or modify the class behavior later on without breaking existing code or changing the overall design.
+

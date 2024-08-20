@@ -1,3 +1,9 @@
+/////
+Example in Encapsulation folder
+/////
+
+
+
 Encapsulation involves bundling the data (attributes) and methods (functions) 
 that operate on the data into a single unit, or class. 
 It restricts direct access to some of an object’s components, 
