@@ -12,8 +12,4 @@
     <PackageReference Include="Dumpify" Version="0.6.6" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="oops\encapsulation\Model\" />
-  </ItemGroup>
-
 </Project>
