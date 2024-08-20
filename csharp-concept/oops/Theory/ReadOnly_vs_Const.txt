@@ -1,0 +1,98 @@
+/////
+Example in Encapsulation folder
+/////
+
+ReadOnly Keyword :
+ReadOnly is a runtime constant.
+The value of readonly field can be changed.
+It cannot be declared inside the method. 	
+In readonly fields, we can assign values in declaration and in the constructor part.
+It can be used with static modifiers.
+
+Run-Time Constant:
+The value of a readonly field can be set either at the time of declaration or 
+in the constructor of the class. Once set, it cannot be changed.
+public readonly int MaxAge;
+public MyClass(int age)
+{
+    MaxAge = age; // Can only be assigned in the constructor
+}
+
+Instance-Specific:
+readonly fields are instance-specific by default, 
+meaning each instance of the class can have a different value for a readonly field. 
+However, you can also have static readonly fields which behave like static fields.
+public readonly int MaxAge;
+public static readonly int GlobalMaxAge = 100;
+
+Allowed Data Types:
+readonly can be used with any data type, including classes, structs, arrays, and primitive types.
+
+Assigned at Runtime:
+The value of a readonly field can be assigned during the runtime in the constructor. 
+This allows you to assign values that are not known until the object is created.
+
+Lifetime:
+readonly fields are tied to the lifetime of the instance they belong to, 
+unless they are static readonly, in which case they are tied to the lifetime of the application.
+
+------------------------------------------------------------------------------------------------------------
+
+Const Keyword :
+Const is a compile time constant.
+The value of the const field can not be changed.
+It can be declared inside the method.
+In const fields, we can only assign values in declaration part.
+It cannot be used with static modifiers.
+
+Compile-Time Constant:
+The value of a const field is determined at compile time. 
+It must be assigned a value when it's declared, and that value cannot be changed later.
+public const int MaxAge = 100;
+
+Implicitly Static:
+const fields are implicitly static. 
+This means they are shared among all instances of the class, 
+and you access them via the class name, not an instance.
+Console.WriteLine(MyClass.MaxAge); // Accessing via class name
+
+Allowed Data Types:
+const can only be used with primitive types (int, float, char, etc.), enum types, and string. 
+It cannot be used with non-primitive types like classes, structs, or arrays (except string).
+
+Inlined Value:
+Because const values are determined at compile time, the compiler replaces every occurrence 
+of the const with its actual value in the compiled code. 
+This means that if you change the value of a const, all code referencing it must be recompiled.
+
+Lifetime:
+const fields are available for the lifetime of the application, similar to static fields.
+
+---------------------------------------------------------------------------------------
+
+Key Differences
+
+Mutability:
+const: Completely immutable; the value cannot change after being compiled.
+readonly: Immutable after the object is constructed but can be set at runtime in the constructor.
+
+Data Types:
+const: Limited to primitive types, enum, and string.
+readonly: Can be used with any type, including classes, structs, and arrays.
+
+Scope:
+const: Always static, accessible through the class.
+readonly: Instance-specific unless explicitly made static.
+
+Assignment:
+const: Must be assigned at the point of declaration.
+readonly: Can be assigned at the point of declaration or within a constructor.
+
+--------------------------------------------------------------------------------------------
+
+When to Use Each :
+Use const when the value is known at compile time, will never change, 
+and you want to ensure it's the same for all instances of a class.
+Use readonly when the value may vary depending on how the object is 
+constructed or when you need to assign a value at runtime that shouldn’t change afterward.
+
