@@ -1,0 +1,59 @@
+
+
+------------
+Question : making class static why do Constructor dont work it throws error
+Answer :
+In C#, a static class cannot have a constructor that takes parameters 
+because static classes are not intended to be instantiated. 
+A static class is a special type of class that cannot be instantiated,
+meaning you cannot create an object of that class using the new keyword.
+
+Static Class Characteristics:
+
+No Instance Members: 
+All members of a static class must also be static. 
+There are no instance members (fields, properties, methods) in a static class.
+
+No Instantiation: 
+You cannot create an instance of a static class. 
+This means that you cannot use the new keyword to create an object of a static class.
+
+Static Constructor: 
+A static class can have a static constructor, but it cannot have an instance constructor. 
+The static constructor is automatically called to initialize 
+the class before any static members are accessed, but it doesn't take parameters.
+
+Why Instance Constructors Are Not Allowed:
+A constructor in a class is used to initialize an instance of that class. 
+Since static classes cannot be instantiated, there is no need for a constructor 
+that takes parameters or an instance constructor. 
+Allowing an instance constructor in a static class would contradict 
+the purpose of a static class, which is to group related members without requiring an instance.
+
+Example of a Static Class with a Static Constructor:
+public static class Utility
+{
+    static Utility()
+    {
+        // Static constructor to initialize static members
+        Console.WriteLine("Static constructor called");
+    }
+
+    public static void DoSomething()
+    {
+        Console.WriteLine("Doing something");
+    }
+}
+
+Key Points:
+Static Constructor: The static constructor is parameterless and is called automatically 
+before the first access to any static member of the class.
+No Instantiation: Since you cannot instantiate the Utility class, 
+there is no need for a constructor that takes parameters.
+
+Conclusion:
+If you need a class that can be instantiated and initialized with parameters, 
+it should not be a static class. If you need a static class for grouping related 
+methods and data that are shared among all instances (or require no instance), 
+you should avoid constructors with parameters and use a static constructor instead 
+for any necessary initialization.

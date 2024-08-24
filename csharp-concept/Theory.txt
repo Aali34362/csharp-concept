@@ -389,9 +389,8 @@ When to Use:
 
 2. Hosted Application (Program Class with HostBuilder)
 
-This version uses HostBuilder, which is common in more complex applications, especially when using ASP.NET Core, background services, or other hosting features:
-
-csharp
+This version uses HostBuilder, which is common in more complex applications, 
+especially when using ASP.NET Core, background services, or other hosting features:
 
 public class Program
 {
@@ -418,7 +417,8 @@ public class Program
 
 Characteristics:
 
-    Advanced Configuration: This approach allows for more advanced configurations, such as reading from configuration files, setting up logging, and environment-specific settings.
+    Advanced Configuration: This approach allows for more advanced configurations,
+    such as reading from configuration files, setting up logging, and environment-specific settings.
     Background Services: You can easily add background services or other hosted services that need to run continuously.
     Dependency Injection Integration: The HostBuilder integrates deeply with dependency injection, configuration, and logging.
 
@@ -431,7 +431,8 @@ When to Use:
 Which One Should You Use?
 
     For Small Console Applications: The simpler version is usually sufficient, as it’s quick to set up and easy to manage.
-    For Larger or Scalable Applications: The HostBuilder approach is preferable. It gives you a lot of flexibility and is the standard in .NET for applications that might grow in complexity.
+    For Larger or Scalable Applications: The HostBuilder approach is preferable.
+    It gives you a lot of flexibility and is the standard in .NET for applications that might grow in complexity.
 
 Conclusion
 
