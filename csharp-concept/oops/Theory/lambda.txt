@@ -1,0 +1,11 @@
+
+Lambda:
+A lambda in programming, specifically in C#, refers to an anonymous function that can contain expressions and statements.
+It is often used as a concise way to represent small functions that are passed as 
+arguments to higher-order methods, such as those used in LINQ queries, event handling, and delegates.
+
+Key Characteristics of Lambda Expressions:
+Anonymous Function:
+A lambda expression is a function without a name. 
+Unlike regular methods, it does not need to be declared separately with a name; it is defined inline.
+
