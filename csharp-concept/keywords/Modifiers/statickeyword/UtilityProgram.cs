@@ -1,4 +1,4 @@
-﻿namespace csharp_concept.keywords.statickeyword;
+﻿namespace csharp_concept.keywords.Modifiers.statickeyword;
 
 public static class Utility
 {

@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="keywords\AccessModifiers\internalkeyword\" />
+    <Folder Include="keywords\AccessModifiers\privateprotectedkeyword\" />
+    <Folder Include="keywords\AccessModifiers\protectedinternalkeyword\" />
+    <Folder Include="keywords\AccessModifiers\protectedkeyword\" />
+    <Folder Include="keywords\AccessModifiers\privatekeyword\" />
+    <Folder Include="keywords\AccessModifiers\publickeyword\" />
     <Folder Include="keywords\Theory\" />
   </ItemGroup>
 
